@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProductController;
+use App\Models\Cat;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,5 +30,14 @@ Route::post('/add_cart ',[CartController::class,'addCart']);
 Route::get('/cart',[CartController::class,'show']);
 
 Route::get('/remove/cart/{id}',[CartController::class,'remove_item']);
+
+
+
+
+
+Route::get('test',[CatController::class,'test_show']);
+
+Route::post('/test/store',[CatController::class,'test']);
+
 
 

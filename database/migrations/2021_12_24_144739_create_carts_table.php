@@ -17,7 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->string('name',255);
             $table->integer('price');
-            $table->integer('subtotal');
+            $table->integer('subtotal');// price of collection products from same kind
 
             $table->string('img',255);
             $table->smallInteger('qty');

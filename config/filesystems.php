@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'apiImage'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,6 +33,12 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+        ],
+
+
+        'apiImage' => [
+            'driver' => 'local',
+            'root' => public_path('apiImage'),
         ],
 
         'public' => [

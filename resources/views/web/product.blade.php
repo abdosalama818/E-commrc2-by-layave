@@ -28,14 +28,14 @@
                     <div class="product_name">{{ $product->name }}</div>
                     <div class="product_text"><p>{{ $product->desc }}</p></div>
                     <div class="order_info d-flex flex-row">
-                        <form action="{{ url("add_cart") }}" method = "POST" >
+                        <form action="" method = "POST" >
                             @csrf
                             <div class="clearfix" style="z-index: 1000;">
 
                                 <input type="hidden" name="name" value="{{ $product->name }}">
                                 <input type="hidden" name="img" value="{{ $product->img }}">
                                 <input type="hidden" name="price" value="{{ $product->price }}">
-                                <input type="hidden" name="id" value="{{ $product->id }}">
+                             
 
                                 <!-- Product Quantity -->
                                 <div class="product_quantity clearfix">

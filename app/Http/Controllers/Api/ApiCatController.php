@@ -28,24 +28,5 @@ class ApiCatController extends Controller
         }
 
 
-        public function show_product($id){
-
-
-            $product = Product::find($id);
-              if($product == null){
-                  return response()->json([
-                      'msg' => "this id not found"
-                  ]);
-              }
-
-
-                return new ProductResource($product);
-              }
-
-
-
-
-
-
-}
+    }
 

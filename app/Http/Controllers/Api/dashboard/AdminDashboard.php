@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Api\dashboard;
 
 use App\Models\Cat;
+
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use GuzzleHttp\Handler\Proxy;
 use App\Http\Resources\CatResource;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ProductController;
+use App\Models\User;
 
 class AdminDashboard extends Controller
 {
@@ -188,5 +193,81 @@ class AdminDashboard extends Controller
             ]);
 
         }
+
+
+
+      /*
+        * this section belongs to review  order by admin
+*/
+
+        public function orders(){
+            $orders = Order::all();
+            return OrderResource::collection($orders);
+
+        }
+
+        public function order_preview($id ){
+            $order = Order::find($id);
+            if($order == null){
+                return response()->json([
+                    'msg'=>"check your id it not found in data base"
+                ]);
+            }
+
+            return new OrderResource($order)  ;
+              }
+
+
+              public function order_edit($id ,Request $request){
+                $order = Order::find($id);
+                if($order == null){
+                    return response()->json([
+                        'msg'=>"check your id it not found in data base"
+                    ]);
+                }
+                $order->update([
+                    'status_of_order'=>$request->status
+                ]);
+                return new OrderResource($order)  ;
+                  }
+
+
+                  /****
+                   *
+                   * edit admins
+                   */
+
+                 public function edite_profile($id,Request $request)
+                 {
+                    $user = User::find($id);
+                    if($user == null){
+                        return response()->json([
+                            'msg'=>"check your id it not found in data base"
+                        ]);
+                    }
+
+                        $validator = Validator::make($request->all(), [
+                            'name' => 'required|string|between:2,100',
+                            'email' => 'required|string|email|max:100|unique:users',
+                            'password' => 'required|string|confirmed|min:6',
+                        ]);
+
+                        if($validator->fails()){
+                            return response()->json($validator->errors()->toJson(), 400);
+                        }
+
+
+                        $user->update([
+                            'name'=>$request->name,
+                            'email'=>$request->email,
+                            'password'=>bcrypt($request->password),
+
+                        ]);
+
+                    return response()->json([
+                        'msg'=>"updated profile success",
+                        'user' => $user
+                    ]);
+                 }
 
 }

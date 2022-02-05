@@ -18,5 +18,19 @@ Route::prefix('dashboard')->name("dashboard.")->middleware(['jwt.auth'])->group(
 
 
 
+    Route::get('/orders',[AdminDashboard::class,'orders']);
+    Route::get('/order/show/{id}',[AdminDashboard::class,'order_preview']);
+
+    Route::post('/order/edit/{id}',[AdminDashboard::class,'order_edit']);
+
+
+
+    Route::post('/admin/edit_profile/{id}',[AdminDashboard::class,'edite_profile']);
+
+
+
+
+
+
 
 });
